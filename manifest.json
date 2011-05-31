@@ -1,0 +1,15 @@
+{
+  "name": "Speech Input Editor",
+  "version": "0.1",
+  "description": "Simple Text Editor via Speech Input.",
+  "icons": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+  },
+  "app": {
+    "launch": {
+      "local_path": "main.html"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang='ja'>
+<head>
+    <meta charset="utf-8">
+
+    <title>Speech Input Editor</title>
+
+    <meta name="description" content="Simple Text Editor via Speech Input.">
+    <meta name="author" content="drikin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            overflow: hidden;
+        }
+        #speech-input-container {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            top: 8px;
+            width: 30px;
+        }
+        #speech-input {
+            border: 0px;
+            color: rgba(0, 0, 255, 0);
+            background: rgba(0, 0, 255, 0);
+            outline: none;
+            font-size: 24px;
+            width: 24px;
+        }
+        #textarea {
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            top: 50px;
+            bottom: 0px;
+            font-size: 14px;
+            outline: none;
+            resize: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="main">
+            <textarea id='textarea'></textarea>
+            <div id='speech-input-container'>
+                <input id='speech-input' type='text' autocomplete='off' autocorrect='off' x-Webkit-Speech/>
+            </div>
+        </div>
+    </div> <!--! end of #container -->
+
+    <!-- Javascript at the bottom for fast page loading -->
+    <!-- script src="js/script.js"></script -->
+
+    <script type="text/javascript" charset="utf-8">
+        function speechInput() {
+            var t = document.getElementById('textarea');
+
+            // insert LineBreak if insert position is end of text
+            if (t.value !== '' && t.value.length === t.selectionStart) {
+                t.value += '\n';
+                t.selectionStart = t.selectionEnd = t.value.length;
+            }
+
+            var txt = t.value;
+            var start = t.selectionStart;
+            var end = t.selectionEnd;
+
+
+            var insertTxt = document.getElementById('speech-input').value;
+            t.value = txt.substring(0, start) + insertTxt + txt.substring(end, txt.length);
+            t.selectionStart = t.selectionEnd = start + insertTxt.length;
+        }
+        document.getElementById('speech-input').addEventListener('webkitspeechchange', speechInput, false);
+    </script>
+
+</body>
+</html>
+
